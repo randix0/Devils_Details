@@ -1,0 +1,6 @@
+/var/www2/pro/www/app/design/frontend/base/default/template/devils/details/details.phtml
+<?php $details = $this->getDetails(); ?>
+
+<?php foreach ($details as $_detail): ?>
+    <p><img src="<?php echo $_detail['image'] ?>" alt=""/></p>
+<?php endforeach; ?>

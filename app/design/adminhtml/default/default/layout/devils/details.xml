@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_details_list>
+        <reference name="content">
+            <block type="devils_details/adminhtml_details" name="details"/>
+        </reference>
+    </adminhtml_details_list>
+
+    <adminhtml_details_grid>
+        <block type="devils_details/adminhtml_details_grid" name="details-ajax" output="toHtml"/>
+    </adminhtml_details_grid>
+
+    <adminhtml_details_edit>
+        <reference name="content">
+            <block type="devils_details/adminhtml_details_edit" name="details-edit"/>
+        </reference>
+    </adminhtml_details_edit>
+</layout>
