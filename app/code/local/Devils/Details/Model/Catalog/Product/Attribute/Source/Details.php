@@ -7,6 +7,11 @@ class Devils_Details_Model_Catalog_Product_Attribute_Source_Details
     protected $_values = null;
     protected $_data = null;
 
+    protected function _getHelper()
+    {
+        return Mage::helper('devils_details');
+    }
+
     public function getAllOptions()
     {
         $result = array();
@@ -69,9 +74,10 @@ class Devils_Details_Model_Catalog_Product_Attribute_Source_Details
             foreach($collection->getItems() as $detail) {
                 $detailId = (int)$detail->getId();
                 $data[$detailId] = array(
+                    'id' => $detailId,
                     'name' => $detail->getName(),
                     'description' => $detail->getDescription(),
-                    'image' => $detail->getImage()
+                    'image' => $this->_getHelper()->getSwatchImage($detailId, $detail->getImage())
                 );
             }
             $this->_data = $data;

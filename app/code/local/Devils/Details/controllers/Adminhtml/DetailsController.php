@@ -73,6 +73,9 @@ class Devils_Details_Adminhtml_DetailsController extends Mage_Adminhtml_Controll
         if ($data = $this->getRequest()->getPost()) {
             $detail = $this->_initDetail();
 
+            $detail->save();
+            $detailId = $detail->getId();
+
             $result = null;
             $isUploaded = true;
             try {
@@ -99,8 +102,9 @@ class Devils_Details_Adminhtml_DetailsController extends Mage_Adminhtml_Controll
             }
 
             if ($isUploaded) {
-                $result = $uploader->save(Mage::getBaseDir('media') . DS . 'details' . DS);
-                $detail->setImage(Mage::getBaseUrl('media') . 'details' . DS . $result['name']);
+                $result = $uploader->save(Mage::getBaseDir('media') . DS .'devils' . DS . 'devils_details' . DS . 'details' . DS . $detailId . DS);
+                //$detail->setImage(Mage::getBaseUrl('media') . 'devils' . DS . 'devils_details' . DS . 'details' . DS . $detailId . DS . $result['name']);
+                $detail->setImage($result['name']);
             }
 
             $detail->save();

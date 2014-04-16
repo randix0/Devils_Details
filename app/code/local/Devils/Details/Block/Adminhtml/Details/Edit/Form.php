@@ -49,10 +49,13 @@ class Devils_Details_Block_Adminhtml_Details_Edit_Form extends Mage_Adminhtml_Bl
         $detail = Mage::registry('current_detail');
 
         if ($detail->getId()) {
+            $detailId = (int)$detail->getId();
             $form->addField('entity_id', 'hidden', array(
                 'name' => 'entity_id',
             ));
             $form->setValues($detail->getData());
+            $image = $form->getElement('image')->getValue();
+            $form->getElement('image')->setValue(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'devils' . DS . 'devils_details' . DS . 'details' . DS . $detailId . DS . $image);
         }
 
         $form->setUseContainer(true);

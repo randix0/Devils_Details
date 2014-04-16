@@ -1,6 +1,8 @@
-/var/www2/pro/www/app/design/frontend/base/default/template/devils/details/details.phtml
-<?php $details = $this->getDetails(); ?>
 
+<?php $details = $this->getDetails();
+if ($details) :
+?>
+<h2>Details</h2>
 <?php foreach ($details as $_detail): ?>
-    <p><img src="<?php echo $_detail['image'] ?>" alt=""/></p>
-<?php endforeach; ?>
+    <a href="/details/<?php echo $_detail['id']; ?>"><img src="<?php echo $_detail['image'] ?>" alt=""/></a>
+<?php endforeach; endif; ?>
