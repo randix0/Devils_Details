@@ -22,4 +22,9 @@ class Devils_Details_Block_Details extends Mage_Catalog_Block_Product_View_Attri
         $data = $_attribute->getFrontend()->getDetails($product);
         return $data;
     }
+
+    public function getDetail()
+    {
+
+    }
 }
