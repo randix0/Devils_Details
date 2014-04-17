@@ -1,6 +1,19 @@
 <?php
 
-class Devils_Details_IndexController extends Mage_Core_Controller_Front_Action {
+class Devils_Details_IndexController extends Mage_Core_Controller_Front_Action
+{
+    protected function _initDetail()
+    {
+        $detailId = (int) $this->getRequest()->getParam('id', false);
+        if (!$detailId) {
+            return false;
+        }
+
+        $detail = Mage::getModel('devils_details/details')
+            ->load($detailId);
+        return $detail;
+    }
+
     public function indexAction() {
         //echo 'DEVils';
 
@@ -13,5 +26,14 @@ class Devils_Details_IndexController extends Mage_Core_Controller_Front_Action {
         }
 
         var_dump(Mage::getBaseDir('media') . DS . 'details');
+    }
+
+    public function viewAction()
+    {
+        if ($detail = $this->_initDetail()) {
+            echo $detail->getName();
+        } elseif (!$this->getResponse()->isRedirect()) {
+            $this->_forward('noRoute');
+        }
     }
 }

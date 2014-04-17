@@ -58,11 +58,14 @@
                 </args>
             </devils_details>
         </routers>
+        <default>
+            <router>devils_details</router>
+        </default>
         <layout>
             <updates>
-                <devils_colors>
+                <devils_details>
                     <file>devils/details.xml</file>
-                </devils_colors>
+                </devils_details>
             </updates>
         </layout>
     </frontend>
