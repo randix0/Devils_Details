@@ -28,6 +28,7 @@ class Devils_Details_IndexController extends Mage_Core_Controller_Front_Action
 
     public function viewAction()
     {
+
         if ($detail = $this->_initDetail()) {
             echo $detail->getName();
         } elseif (!$this->getResponse()->isRedirect()) {
