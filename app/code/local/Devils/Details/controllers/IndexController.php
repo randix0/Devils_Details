@@ -15,8 +15,6 @@ class Devils_Details_IndexController extends Mage_Core_Controller_Front_Action
     }
 
     public function indexAction() {
-        //echo 'DEVils';
-
         $collection = Mage::getResourceModel('devils_details/details_collection');
 
         $options = array();
