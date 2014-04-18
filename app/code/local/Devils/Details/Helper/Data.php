@@ -11,6 +11,11 @@ class Devils_Details_Helper_Data extends Mage_Core_Helper_Abstract {
         //return sprintf($path, $id, $file);
     }
 
+    public function getBigImage($id, $file)
+    {
+        return $this->_getResizedImage($file, $id, 685, 400);
+    }
+
     protected function _getResizedImage($filename, $dir, $width, $height = null)
     {
         $imagePath = Mage::getBaseDir('media') . DS . 'devils' . DS . 'devils_details' . DS . 'details' . DS . $dir . DS . $filename;
@@ -31,5 +36,15 @@ class Devils_Details_Helper_Data extends Mage_Core_Helper_Abstract {
             return $imageCacheUrl;
         }
         return '';
+    }
+
+    public function initDetail($detailId)
+    {
+        if (!Mage::registry('detail') && $detailId) {
+            $detailId = (int)$detailId;
+            $detail = Mage::getModel('devils_details/details')->load($detailId);
+            Mage::register('detail', $detail);
+        }
+        return Mage::registry('detail');
     }
 }

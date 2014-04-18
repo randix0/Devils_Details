@@ -1,3 +1,7 @@
-<h2>hello</h2>
-
-<?php  ?>
+<?php
+$_detail = $this->getDetail();
+$_helper = Mage::helper('devils_details');
+?>
+<h1><?php echo $_detail->getName(); ?></h1>
+<img src="<?php echo $_helper->getBigImage($_detail->getId(), $_detail->getImage()); ?>" alt=""/>
+<p><?php echo $_detail->getDescription(); ?></p>

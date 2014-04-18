@@ -26,7 +26,7 @@
             <action method="setHeaderTitle" translate="title" module="contacts"><title>Detail</title></action>
         </reference>
         <reference name="content">
-            <block type="core/template" name="contactForm" template="devils/details/details.phtml"/>
+            <block type="devils_details/details" name="contactForm" template="devils/details/details.phtml"/>
         </reference>
     </devils_details_index_view>
     <devils_details_view>

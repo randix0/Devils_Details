@@ -25,6 +25,10 @@ class Devils_Details_Block_Details extends Mage_Catalog_Block_Product_View_Attri
 
     public function getDetail()
     {
-
+        $detail = Mage::registry('detail');
+        if (!$detail || empty($detail)) {
+            return false;
+        }
+        return $detail;
     }
 }
