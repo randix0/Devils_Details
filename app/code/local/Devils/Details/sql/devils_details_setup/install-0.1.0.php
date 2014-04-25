@@ -8,7 +8,7 @@ CREATE TABLE {$this->getTable('devils_details_entity')} (
   `entity_id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
   `description` text NOT NULL default '',
-  `image` VARCHAR(255) NOT NULL
+  `image` VARCHAR(255) NOT NULL,
   `active` tinyint(1) NOT NULL default 1,
   PRIMARY KEY (`entity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
