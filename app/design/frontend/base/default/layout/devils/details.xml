@@ -10,13 +10,6 @@
             </block>
         </reference>
     </catalog_product_view>
-    <default>
-        <reference name="top.menu">
-            <block type="devils_details/details" name="devils.collections" after="-"
-                   template="devils/collections/collections.phtml">
-            </block>
-        </reference>
-    </default>
     <devils_details_index_view translate="label">
         <label>Detail</label>
         <reference name="head">
