@@ -73,9 +73,6 @@ class Devils_Details_Adminhtml_DetailsController extends Mage_Adminhtml_Controll
         if ($data = $this->getRequest()->getPost()) {
             $detail = $this->_initDetail();
 
-            $detail->save();
-            $detailId = $detail->getId();
-
             $result = null;
             $isUploaded = true;
             try {
@@ -101,13 +98,20 @@ class Devils_Details_Adminhtml_DetailsController extends Mage_Adminhtml_Controll
                 $detail->setImage('');
             }
 
-            if ($isUploaded) {
-                $result = $uploader->save(Mage::getBaseDir('media') . DS .'devils' . DS . 'devils_details' . DS . 'details' . DS . $detailId . DS);
-                //$detail->setImage(Mage::getBaseUrl('media') . 'devils' . DS . 'devils_details' . DS . 'details' . DS . $detailId . DS . $result['name']);
-                $detail->setImage($result['name']);
+            try {
+                $detail->save();
+                $detailId = $detail->getId();
+            } catch (Exception $e) {
+                return $this->_redirect('*/*/');
             }
 
-            $detail->save();
+            if ($isUploaded) {
+                $result = $uploader->save(Mage::getBaseDir('media') . DS . 'devils' . DS . 'devils_details' . DS . 'details' . DS . $detailId . DS);
+                $detail->setImage($result['name']);
+                $detail->save();
+            }
+
+            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('devils_colors')->__('%s was successfully saved', $detail->getName()));
 
             if ($this->getRequest()->getParam('back')) {
                 $params = array('id' => $detail->getId());
@@ -117,5 +121,47 @@ class Devils_Details_Adminhtml_DetailsController extends Mage_Adminhtml_Controll
             }
         }
         $this->_redirect('*/*/');
+    }
+
+    public function deleteAction()
+    {
+        if($this->getRequest()->getParam('id') > 0)
+        {
+            try
+            {
+                $id = $this->getRequest()->getParam('id');
+                $color = Mage::getModel('devils_details/details');
+                $color->setId($id)->delete();
+
+                $colorPath = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'devils' . DS . 'devils_details' . DS . 'details' . DS . $id;
+                $cachePath = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'devils' . DS . 'devils_details' . DS . 'cache' . DS . $id;
+                $this->_clearDir($colorPath);
+                $this->_clearDir($cachePath);
+
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Detail was successfully deleted'));
+                $this->_redirect('*/*/');
+            }catch(Exception $e){
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+            }
+        }
+        $this->_redirect('*/*/');
+    }
+
+    protected function _clearDir($dir)
+    {
+        if(file_exists($dir)){
+            $glob = glob($dir . '/*');
+            if($glob){
+                foreach($glob as $file){
+                    if(is_dir($file)){
+                        $this->_clearDir($file);
+                    }else{
+                        unlink($file);
+                    }
+                }
+                rmdir($dir);
+            }
+        }
     }
 }

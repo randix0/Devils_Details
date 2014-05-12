@@ -1,8 +1,7 @@
-
-<?php $details = $this->getDetails();
-if ($details) :
+<?php
+$_detail = $this->getDetail();
+$_helper = Mage::helper('devils_details');
 ?>
-<h2>Details</h2>
-<?php foreach ($details as $_detail): ?>
-    <a href="/details/<?php echo $_detail['id']; ?>"><img src="<?php echo $_detail['image'] ?>" alt=""/></a>
-<?php endforeach; endif; ?>
+<h1><?php echo $_detail->getName(); ?></h1>
+<img src="<?php echo $_helper->getBigImage($_detail->getId(), $_detail->getImage()); ?>" alt=""/>
+<p><?php echo $_detail->getDescription(); ?></p>

@@ -8,19 +8,14 @@ class Devils_Details_IndexController extends Mage_Core_Controller_Front_Action
         if (!$detailId) {
             return false;
         }
-
-        $detail = Mage::getModel('devils_details/details')
-            ->load($detailId);
+        $detail = Mage::helper('devils_details')->initDetail($detailId);
         return $detail;
     }
 
     public function indexAction() {
-        //echo 'DEVils';
-
         $collection = Mage::getResourceModel('devils_details/details_collection');
 
         $options = array();
-
         foreach($collection->getItems() as $detail) {
             $options[] = array('label' => $detail->getName(), 'value' => $detail->getId());
         }
@@ -30,10 +25,25 @@ class Devils_Details_IndexController extends Mage_Core_Controller_Front_Action
 
     public function viewAction()
     {
+
         if ($detail = $this->_initDetail()) {
-            echo $detail->getName();
+
         } elseif (!$this->getResponse()->isRedirect()) {
             $this->_forward('noRoute');
         }
+
+        //$this->loadLayout();
+        $update = $this->getLayout()->getUpdate();
+        $update->addHandle('default');
+        $this->addActionLayoutHandles();
+        $update->addHandle('devils_details_view');
+        $this->loadLayoutUpdates();
+        $this->generateLayoutXml();
+        $this->generateLayoutBlocks();
+        $this->_isLayoutLoaded = true;
+
+        //print_r($this->getLayout()->getUpdate()->getHandles());
+
+        $this->renderLayout();
     }
 }

@@ -3,12 +3,17 @@
 class Devils_Details_Helper_Data extends Mage_Core_Helper_Abstract {
     public function getSwatchImage($id, $file)
     {
-        $display = Mage::getStoreConfig('devils_details/general/display');
-        $path = '/media/devils/devils_details/details/%s/%s';
-        if((int)$display === 0){
+        //$display = Mage::getStoreConfig('devils_details/general/display');
+        //$path = '/media/devils/devils_details/details/%s/%s';
+        //if((int)$display === 0){
             return $this->_getResizedImage($file, $id, 120, 120);
-        }
-        return sprintf($path, $id, $file);
+        //}
+        //return sprintf($path, $id, $file);
+    }
+
+    public function getBigImage($id, $file)
+    {
+        return $this->_getResizedImage($file, $id, 685, 400);
     }
 
     protected function _getResizedImage($filename, $dir, $width, $height = null)
@@ -31,5 +36,15 @@ class Devils_Details_Helper_Data extends Mage_Core_Helper_Abstract {
             return $imageCacheUrl;
         }
         return '';
+    }
+
+    public function initDetail($detailId)
+    {
+        if (!Mage::registry('detail') && $detailId) {
+            $detailId = (int)$detailId;
+            $detail = Mage::getModel('devils_details/details')->load($detailId);
+            Mage::register('detail', $detail);
+        }
+        return Mage::registry('detail');
     }
 }

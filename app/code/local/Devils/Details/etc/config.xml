@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Devils_Details>
-            <version>0.1.0.3</version>
+            <version>0.1.0</version>
         </Devils_Details>
     </modules>
     <!--
@@ -47,6 +47,12 @@
                 <class>Devils_Details_Helper</class>
             </devils_details>
         </helpers>
+        <rewrite>
+            <details_url>
+                <from><![CDATA[/details\/(\d+)/]]></from>
+                <to><![CDATA[details/index/view/id/$1]]></to>
+            </details_url>
+        </rewrite>
     </global>
     <frontend>
         <routers>
